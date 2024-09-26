@@ -20,6 +20,7 @@ def extract_events(city: str, start_date: str, end_date: str):
     page_idx = 0
     logging.info(f"Get coordinates for {city} ...")
     city_coordinates = get_city_coordinates(city)
+    previous_page_event_url_list = []
     while has_next_page:
         page_idx += 1
         random_sleep()
@@ -31,13 +32,19 @@ def extract_events(city: str, start_date: str, end_date: str):
             city_coordinates["longitude"],
             page_idx,
         )
-
-        if response_dict.get("events") is None:
-            return f"Scraping failed at page {page_idx}", 500
+        current_page_event_url_list = response_dict.get("events")[0]["eventUrl"]
 
         if response_dict.get("urlForNextPageOfEvents") is None:
             has_next_page = False
 
+        if (
+            response_dict.get("events") is None
+            or current_page_event_url_list == previous_page_event_url_list
+        ):
+            logging.info(f"No more events found for {city}")
+            return
+
+        previous_page_event_url_list = current_page_event_url_list
         filename = f"events-{city}-page-{page_idx}.json"
         save_json(response_dict, filename)
         logging.info(f"Events from page {page_idx} saved")
