@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "data-engineering-course"
+version = "0.1.0"
+description = ""
+authors = ["Xavier Lai <xavier.l@cabaia.fr>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.32.3"
+google-cloud-storage = "^2.18.2"
+geopy = "^2.4.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
