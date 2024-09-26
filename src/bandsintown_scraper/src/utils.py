@@ -34,7 +34,7 @@ def save_json_to_gcs(
 
 def save_json(data_to_persist: Dict[str, Union[str, Dict, List]], filename: str):
     """Write data to a JSON file."""
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    os.makedirs(os.path.dirname(os.path.join(OUTPUT_DIR, filename)), exist_ok=True)
     file_path = os.path.join(OUTPUT_DIR, filename)
 
     with open(file_path, "w") as json_file:

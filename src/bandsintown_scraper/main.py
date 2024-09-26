@@ -1,52 +1,44 @@
-import requests
-
-
-from .src.exceptions import ScrapingException
-
-from .src.utils import save_json, random_sleep, get_city_coordinates
-from .src.scrap_one_page import scrap_one_page
+from datetime import datetime, timedelta
 import logging
+
+from .src.scrap_multiple_pages import scrap_multiple_pages
+from .src.utils import get_city_coordinates
+
 
 logging.basicConfig(level=logging.INFO)
 
 
-def extract_events(city: str, start_date: str, end_date: str):
-    """Scrap all events of a city from bands in town internal API"""
+def extract_events(city: str, start_date: str, end_date: str, max_page: int = 30):
+    """
+    Main function to scrape events for each day between start_date and end_date.
+    Calls scrap_multiple_pages for every single day in the date range.
+    """
     logger = logging.getLogger(__name__)
-    session = requests.Session()
-
-    logger.info(f"Scraping events for {city} from {start_date} to {end_date} ...")
-    has_next_page = True
-    page_idx = 0
+    start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+    end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+    total_events = 0
     logging.info(f"Get coordinates for {city} ...")
     city_coordinates = get_city_coordinates(city)
-    previous_page_event_url_list = []
-    while has_next_page:
-        page_idx += 1
-        random_sleep()
-        response_dict = scrap_one_page(
-            session,
-            start_date,
-            end_date,
+
+    while start_dt <= end_dt:
+        current_date_str = start_dt.strftime("%Y-%m-%d")
+        logger.info(f"Scraping events for {city} on {current_date_str} ...")
+
+        # Call scrap_multiple_pages for each day
+        current_day_events_scraped = scrap_multiple_pages(
+            current_date_str,
+            current_date_str,
             city_coordinates["latitude"],
             city_coordinates["longitude"],
-            page_idx,
+            max_page,
         )
-        current_page_event_url_list = response_dict.get("events")[0]["eventUrl"]
+        total_events += current_day_events_scraped
 
-        if response_dict.get("urlForNextPageOfEvents") is None:
-            has_next_page = False
+        logger.info(
+            f"Total events scraped for {current_date_str}: {current_day_events_scraped}"
+        )
 
-        if (
-            response_dict.get("events") is None
-            or current_page_event_url_list == previous_page_event_url_list
-        ):
-            logging.info(f"No more events found for {city}")
-            return
+        start_dt += timedelta(days=1)
 
-        previous_page_event_url_list = current_page_event_url_list
-        filename = f"events-{city}-page-{page_idx}.json"
-        save_json(response_dict, filename)
-        logging.info(f"Events from page {page_idx} saved")
-
-    logging.info(f"{page_idx} pages have been scraped sucessfully")
+    logger.info(f"Finished scraping events for {city} from {start_date} to {end_date}.")
+    logger.info(f"Total events scraped: {total_events}")
