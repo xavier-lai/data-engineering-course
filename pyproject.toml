@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "data-engineering-course"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["Xavier Lai <xavier.l@cabaia.fr>"]
 readme = "README.md"
@@ -10,6 +10,8 @@ python = "^3.11"
 requests = "^2.32.3"
 google-cloud-storage = "^2.18.2"
 geopy = "^2.4.1"
+pandas = "^2.2.3"
+pandas-gbq = "^0.23.2"
 
 
 [build-system]
