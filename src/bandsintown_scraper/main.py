@@ -28,6 +28,7 @@ def extract_events(city: str, start_date: str, end_date: str, max_page: int = 30
         current_day_events_scraped = scrap_multiple_pages(
             current_date_str,
             current_date_str,
+            city,
             city_coordinates["latitude"],
             city_coordinates["longitude"],
             max_page,

@@ -11,6 +11,7 @@ logging.basicConfig(level=logging.INFO)
 def scrap_multiple_pages(
     start_date: str,
     end_date: str,
+    city: str,
     city_latitude: float,
     city_longitude: float,
     max_page: int = 30,
@@ -26,7 +27,7 @@ def scrap_multiple_pages(
 
     while has_next_page and page_idx < max_page:
         page_idx += 1
-        random_sleep()
+        random_sleep(min_sleep=2, max_sleep=5)
         response_dict = scrap_one_page(
             session,
             start_date,
@@ -53,7 +54,7 @@ def scrap_multiple_pages(
             return total_event_scrapped
 
         previous_page_event_url_list = current_page_event_url_list
-        filename = os.path.join(start_date, f"events-page-{page_idx}.json")
+        filename = os.path.join(city, start_date, f"events-page-{page_idx}.json")
         save_json(response_dict, filename)
         total_event_scrapped += len(current_page_event_url_list)
         logging.info(f"Events from page {page_idx} saved")
