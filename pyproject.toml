@@ -11,6 +11,7 @@ requests = "^2.32.3"
 google-cloud-storage = "^2.18.2"
 geopy = "^2.4.1"
 pandas = "^2.2.3"
+pandas-gbq = "^0.23.2"
 
 
 [build-system]
