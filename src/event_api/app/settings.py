@@ -3,6 +3,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    accepted_token: str = Field(alias="accepted_token")
     gcp_project_id: str = Field(alias="gcp_project_id")
     bq_dataset_name: str = Field(alias="bq_dataset_name")
     bq_table_name: str = Field(alias="bq_table_name")

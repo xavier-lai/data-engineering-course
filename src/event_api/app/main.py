@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from .routes import get_all_events_router
+from .routes import all_routes
 
 app = FastAPI(
     title="Events API",
@@ -8,10 +8,6 @@ app = FastAPI(
     version="0.0.1",
 )
 
-app.include_router(get_all_events_router)
 
-
-# Run a startup log to verify routes are loaded
-@app.on_event("startup")
-async def startup_event():
-    print(f"Routes: {app.routes}")
+for route in all_routes:
+    app.include_router(route)
