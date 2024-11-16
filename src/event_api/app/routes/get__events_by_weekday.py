@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException, Query
 from pandas import DataFrame
 
 from ..db._config import DB_TABLE
-from ..db.fetch_events import fetch_event_from_query
+from ..db.fetch_events import execute_query_against_db
 from .security import check_token
 
 router = APIRouter()
@@ -32,7 +32,7 @@ async def get_events_by_day_of_week(
         """
 
         # Fetch events
-        events_df: DataFrame = fetch_event_from_query(query)
+        events_df: DataFrame = execute_query_against_db(query)
 
         # Check if events exist
         if events_df.empty:

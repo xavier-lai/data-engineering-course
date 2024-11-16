@@ -3,7 +3,7 @@ from typing import Dict, List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 
 from ..db._config import DB_TABLE
-from ..db.fetch_events import fetch_event_from_query
+from ..db.fetch_events import execute_query_against_db
 from .pagination import paginate
 from .security import check_token
 
@@ -23,7 +23,7 @@ async def get_all_events(
     query = f"SELECT * FROM `{DB_TABLE}`"
 
     try:
-        events_df = fetch_event_from_query(query)
+        events_df = execute_query_against_db(query)
 
         if city:
             events_df = events_df[events_df["city"] == city]

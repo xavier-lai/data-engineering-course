@@ -3,7 +3,7 @@ from typing import Optional, Tuple
 from fastapi import APIRouter, Depends, HTTPException, Query
 
 from ..db._config import DB_TABLE
-from ..db.fetch_events import fetch_event_from_query
+from ..db.fetch_events import execute_query_against_db
 from .pagination import paginate
 from .security import check_token
 
@@ -56,7 +56,7 @@ async def search_events(
             query += f" WHERE {where_clause}"
 
         # Fetch events from BigQuery
-        events_df = fetch_event_from_query(query)
+        events_df = execute_query_against_db(query)
 
         # Return the filtered DataFrame (pagination handled by the decorator)
         return events_df

@@ -1,5 +1,5 @@
 import os
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import pandas as pd
 from google.cloud import bigquery
@@ -8,24 +8,29 @@ from google.oauth2 import service_account
 from ..settings import settings
 
 
-def fetch_event_from_query(
+def execute_query_against_db(
     query: str,
     query_params: Optional[List[bigquery.ScalarQueryParameter]] = None,
-) -> pd.DataFrame:
+    return_df: bool = True,
+) -> Optional[pd.DataFrame]:
     """
-    Fetch events from BigQuery based on a provided SQL query.
+    Execute a query on BigQuery and optionally return the result as a DataFrame.
 
     Args:
         query (str): SQL query to execute.
         query_params (Optional[List[bigquery.ScalarQueryParameter]]): Optional query parameters for secure SQL execution.
+        return_df (bool): Flag to determine if the result should be returned as a DataFrame. Defaults to True.
 
     Returns:
-        Events fetched from BigQuery as a pandas DataFrame.
+        Optional[pd.DataFrame]: The result of the query as a DataFrame if `return_df` is True, otherwise None.
+
+    Raises:
+        RuntimeError: If query execution fails.
     """
 
     service_account_fp = settings.service_account_fp
 
-    if service_account_fp is None:
+    if not service_account_fp:
         raise ValueError("SERVICE_ACCOUNT_FP environment variable must be set")
 
     credentials = service_account.Credentials.from_service_account_file(
@@ -41,5 +46,6 @@ def fetch_event_from_query(
     except Exception as e:
         raise RuntimeError(f"Failed to execute query: {str(e)}")
 
-    df = result.to_dataframe()
-    return df
+    if return_df:
+        return result.to_dataframe()
+    return None
