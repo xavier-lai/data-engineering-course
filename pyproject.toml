@@ -13,6 +13,10 @@ geopy = "^2.4.1"
 pandas = "^2.2.3"
 pandas-gbq = "^0.23.2"
 fastapi = {extras = ["standard"], version = "^0.115.0"}
+python-dotenv = "^1.0.1"
+pydantic = "^2.9.2"
+pydantic-settings = "^2.6.1"
+google-auth = "^2.36.0"
 
 
 [build-system]
