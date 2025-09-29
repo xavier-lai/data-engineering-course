@@ -1,13 +1,13 @@
 import json
 import os
+import random
+import time
 from typing import Dict, List, Union
 
+from geopy.geocoders import Nominatim
 from google.cloud import storage
 
 from .constants import GCS_RAW_DATA_BUCKET_NAME, OUTPUT_DIR
-import time
-import random
-from geopy.geocoders import Nominatim
 
 
 def save_json_to_gcs(

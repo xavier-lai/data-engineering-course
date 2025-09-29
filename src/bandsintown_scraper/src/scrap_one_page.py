@@ -1,3 +1,4 @@
+import random
 from json import JSONDecodeError
 from typing import Any, Dict
 
@@ -5,8 +6,6 @@ import requests
 
 from .constants import API_URL, USER_AGENT_LIST
 from .exceptions import ScrapingException
-import random
-from typing import Dict, Any
 from .utils import get_city_coordinates
 
 
