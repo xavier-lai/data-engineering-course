@@ -10,12 +10,12 @@ from .src.upload import upload_to_bigquery
 logging.basicConfig(level=logging.INFO)
 
 
-def upload_events():
+def upload_events(destination_table_name: str):
     logging.info("Reading events from input directory ..")
     raw_event_list = read_events(INPUT_DIR)
     logging.info("Transforming events ..")
     transformed_event_pdf = transform_events(raw_event_list)
-    upload_to_bigquery(transformed_event_pdf, "events_2025_2026")
+    upload_to_bigquery(transformed_event_pdf, destination_table_name)
     logging.info(f"{len(transformed_event_pdf.index)} events uploaded to BigQuery")
 
     return transformed_event_pdf
