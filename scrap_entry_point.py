@@ -1,3 +1,3 @@
 from src.bandsintown_scraper import extract_events
 
-extract_events("Paris", "2024-10-01", "2024-12-31")
+extract_events("Berlin", "2025-10-01", "2025-12-31")

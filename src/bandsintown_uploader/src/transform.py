@@ -1,7 +1,9 @@
 from functools import reduce
-from .constants import EVENT_ATTRIBUTE_MAPPING_DICT, EVENTS_KEY
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
 import pandas as pd
+
+from .constants import EVENT_ATTRIBUTE_MAPPING_DICT, EVENTS_KEY
 
 
 def transform_events(event_raw_list: List[Dict[str, Any]]):
