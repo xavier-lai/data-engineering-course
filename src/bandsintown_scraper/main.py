@@ -1,9 +1,8 @@
-from datetime import datetime, timedelta
 import logging
+from datetime import datetime, timedelta
 
 from .src.scrap_multiple_pages import scrap_multiple_pages
 from .src.utils import get_city_coordinates
-
 
 logging.basicConfig(level=logging.INFO)
 
