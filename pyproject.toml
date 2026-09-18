@@ -1,6 +1,6 @@
 [project]
 name = "data-engineering-course"
-version = "0.3.1"
+version = "0.3.2"
 description = ""
 authors = [{ name = "Xavier Lai", email = "xavier.l@cabaia.fr" }]
 readme = "README.md"
