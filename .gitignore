@@ -1,5 +1,14 @@
 playground/
 
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.auto.tfvars
+*.tfplan
+tfplan.out
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
