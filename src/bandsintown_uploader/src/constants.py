@@ -1,6 +1,16 @@
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 INPUT_DIR = "data/"
 EVENTS_KEY = "events"
 JSON_EXTENSION = ".json"
+
+GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID", "ai-technologies-ur2")
+BQ_DATASET_NAME = os.getenv("BQ_DATASET_NAME", "dataset_teacher")
+SA_KEY_JSON_PATH = os.getenv("SA_KEY_JSON", "secrets/sa-key-json.json")
 
 EVENT_ATTRIBUTE_MAPPING_DICT = {
     "city": "city",

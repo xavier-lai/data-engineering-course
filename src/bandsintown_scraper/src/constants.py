@@ -1,5 +1,9 @@
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Return always the first page when using params= instead of plain url
 # So we using the plain url with parameters inside it
 API_URL = (
