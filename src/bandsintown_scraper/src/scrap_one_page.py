@@ -1,10 +1,9 @@
-import random
 from json import JSONDecodeError
 from typing import Any, Dict
 
 import requests
 
-from .constants import API_URL, USER_AGENT_LIST
+from .constants import API_HEADERS, API_URL
 from .exceptions import ScrapingException
 from .utils import get_city_coordinates
 
@@ -36,7 +35,7 @@ def scrap_one_page(
 
 
 def _get_header_dict() -> Dict[str, str]:
-    return {"User-Agent": random.choice(USER_AGENT_LIST)}
+    return dict(API_HEADERS)
 
 
 def _get_params_dict(

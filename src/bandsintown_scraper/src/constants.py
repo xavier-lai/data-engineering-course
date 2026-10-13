@@ -22,6 +22,24 @@ GCS_RAW_DATA_BUCKET_NAME = os.getenv(
 )
 OUTPUT_DIR = "data/"
 
+# Headers a Chrome browser sends for a same-origin fetch() call. Cloudflare rejects
+# requests that only set a User-Agent, so keep these consistent with each other
+# (sec-ch-ua / platform must match the User-Agent).
+API_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
+    # No "br": requests cannot decode Brotli without the extra brotli package
+    "Accept-Encoding": "gzip, deflate",
+    "Referer": "https://www.bandsintown.com/fr/choose-dates/genre/all-genres",
+    "sec-ch-ua": '"Chromium";v="129", "Not=A?Brand";v="8"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"macOS"',
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-origin",
+}
+
 USER_AGENT_LIST = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko",
