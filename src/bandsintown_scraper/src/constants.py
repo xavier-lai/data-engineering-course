@@ -27,14 +27,14 @@ API_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",  # needed (403 without) but not enough alone
     "Accept": "application/json, text/plain, */*",  # not required on its own
     "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",  # not required on its own
-    "Accept-Encoding": "gzip, deflate",  # no "br": requests can't decode Brotli without the brotli package
+    # "Accept-Encoding": "gzip, deflate",  # no "br": requests can't decode Brotli without the brotli package
     "Referer": "https://www.bandsintown.com/fr/choose-dates/genre/all-genres",  # UA + Referer alone failed; mixed results elsewhere
     "sec-ch-ua": '"Chromium";v="129", "Not=A?Brand";v="8"',  # must match the User-Agent version; UA + sec-ch-ua* alone passed
-    "sec-ch-ua-mobile": "?0",  # same group as sec-ch-ua
-    "sec-ch-ua-platform": '"macOS"',  # must match the User-Agent OS
+    # "sec-ch-ua-mobile": "?0",  # same group as sec-ch-ua
+    # "sec-ch-ua-platform": '"macOS"',  # must match the User-Agent OS
     "Sec-Fetch-Dest": "empty",  # not required on its own
-    "Sec-Fetch-Mode": "cors",  # UA + this header alone passed; "navigate" also passed with the full set
-    "Sec-Fetch-Site": "same-origin",  # not required on its own
+    # "Sec-Fetch-Mode": "cors",  # UA + this header alone passed; "navigate" also passed with the full set
+    # "Sec-Fetch-Site": "same-origin",  # not required on its own
 }
 
 USER_AGENT_LIST = [
